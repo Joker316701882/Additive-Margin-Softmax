@@ -23,16 +23,6 @@ def resface_pre(lower_input,output_channels,scope=None):
     net = slim.conv2d(lower_input, output_channels, stride=2, activation_fn=None, scope=scope)
     return prelu(lower_input+net)
   
-def resface_block(lower_input,output_channels,scope=None):
-    with tf.variable_scope(scope):
-        net = slim.conv2d(lower_input, output_channels)
-        net = slim.conv2d(net, output_channels,activation_fn=None)
-        return prelu(lower_input + net)
-
-def resface_pre(lower_input,output_channels,scope=None):
-    net = slim.conv2d(lower_input, output_channels, stride=2, scope=scope)
-    return net
-
 def resface20(images, keep_probability, 
              phase_train=True, bottleneck_layer_size=512, 
              weight_decay=0.0, reuse=None):
