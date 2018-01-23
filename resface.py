@@ -22,13 +22,7 @@ def resface_block(lower_input,output_channels,scope=None):
 def resface_pre(lower_input,output_channels,scope=None):
     net = slim.conv2d(lower_input, output_channels, stride=2, activation_fn=None, scope=scope)
     return prelu(lower_input+net)
-
-def prelu(x):
-  alphas = tf.Variable(tf.constant(0.25,dtype=tf.float32,shape=[x.get_shape()[-1]]),name='prelu_alphas')
-  pos = tf.nn.relu(x)
-  neg = alphas * (x - abs(x)) * 0.5
-  return pos + neg
-
+  
 def resface_block(lower_input,output_channels,scope=None):
     with tf.variable_scope(scope):
         net = slim.conv2d(lower_input, output_channels)
