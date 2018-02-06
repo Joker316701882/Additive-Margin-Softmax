@@ -56,7 +56,7 @@ def resface20(images, keep_probability,
                            scope='Dropout')
     
     net = slim.fully_connected(net, bottleneck_layer_size, activation_fn=None, 
-            scope='Bottleneck', reuse=False)            
+            normalizer_fn=None, biases_intializer=None, scope='Bottleneck', reuse=False)            
     return net,''
 
 def resface36(images, keep_probability, 
@@ -89,7 +89,7 @@ def resface36(images, keep_probability,
         net = slim.dropout(net, keep_probability, is_training=phase_train,
                            scope='Dropout')
     net = slim.fully_connected(net, bottleneck_layer_size, activation_fn=None, 
-            scope='Bottleneck', reuse=False)    
+            normalizer_fn=None, biases_intializer=None, scope='Bottleneck', reuse=False)    
     return net,''
 
 def inference(image_batch, keep_probability, 
@@ -105,16 +105,17 @@ def inference(image_batch, keep_probability,
         # Moving averages ends up in the trainable variables collection
         'variables_collections': [ tf.GraphKeys.TRAINABLE_VARIABLES ],
     }    
-    with slim.arg_scope([slim.conv2d, slim.fully_connected], 
-                         weights_initializer=tf.truncated_normal_initializer(stddev=0.01), 
-                         weights_regularizer=slim.l2_regularizer(weight_decay), 
-                         activation_fn=prelu,
-                         normalizer_fn=slim.batch_norm,
-                         #normalizer_fn=None,
-                         normalizer_params=batch_norm_params):
-        with slim.arg_scope([slim.conv2d], kernel_size=3):
-            return resface20(images=image_batch, 
-                            keep_probability=keep_probability, 
-                            phase_train=phase_train, 
-                            bottleneck_layer_size=bottleneck_layer_size, 
-                            reuse=None)
+    with tf.variable_scope('Resface'):
+        with slim.arg_scope([slim.conv2d, slim.fully_connected], 
+                             weights_initializer=tf.truncated_normal_initializer(stddev=0.01), 
+                             weights_regularizer=slim.l2_regularizer(weight_decay), 
+                             activation_fn=prelu,
+                             normalizer_fn=slim.batch_norm,
+                             #normalizer_fn=None,
+                             normalizer_params=batch_norm_params):
+            with slim.arg_scope([slim.conv2d], kernel_size=3):
+                return resface20(images=image_batch, 
+                                keep_probability=keep_probability, 
+                                phase_train=phase_train, 
+                                bottleneck_layer_size=bottleneck_layer_size, 
+                                reuse=None)
