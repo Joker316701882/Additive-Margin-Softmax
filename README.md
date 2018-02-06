@@ -8,7 +8,7 @@ Instead,
 and 
 **loss head** can be found at **AM-softmax.py**
 
-##lfw accuracy
+## lfw accuracy
 Currently it only reaches 97.6%. There might be some bugs, when it reaches > 99%, detail configuration will be posted here.
 
 ![lfw](./tfboard/lfw_acc.png)
