@@ -56,7 +56,7 @@ def resface20(images, keep_probability,
                            scope='Dropout')
     
     net = slim.fully_connected(net, bottleneck_layer_size, activation_fn=None, 
-            normalizer_fn=None, biases_intializer=None, scope='Bottleneck', reuse=False)            
+            scope='Bottleneck', reuse=False)            
     return net,''
 
 def resface36(images, keep_probability, 
@@ -89,7 +89,7 @@ def resface36(images, keep_probability,
         net = slim.dropout(net, keep_probability, is_training=phase_train,
                            scope='Dropout')
     net = slim.fully_connected(net, bottleneck_layer_size, activation_fn=None, 
-            normalizer_fn=None, biases_intializer=None, scope='Bottleneck', reuse=False)    
+            scope='Bottleneck', reuse=False)    
     return net,''
 
 def inference(image_batch, keep_probability, 
