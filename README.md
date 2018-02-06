@@ -7,3 +7,6 @@ Instead,
 **model structure** can be found at **resface.py** 
 and 
 **loss head** can be found at **AM-softmax.py**
+
+![lfw_acc](https://github.com/Joker316701882/Additive-Margin-Softmax/tree/master/tfboard/lfw_acc.png)
+
