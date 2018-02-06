@@ -2,7 +2,9 @@ import tensorflow as tf
 import tensorflow.contrib.slim as slim
 
 '''
-resface20 and resface36 proposed in sphereface and applied in Additive Margin Softmax paper
+Resface20 and Resface36 proposed in sphereface and applied in Additive Margin Softmax paper
+Notice:
+batch norm is used in line 111. to cancel batch norm, simply commend out line 111 and use line 112
 '''
 
 def prelu(x):
@@ -29,9 +31,9 @@ def resface20(images, keep_probability,
     conv[conv_layer]_[block_index]_[block_layer_index]
     '''
     with tf.variable_scope('Conv1'):
-        net = resface_pre(images,64,scope='Conv1_pre')
-        net = slim.conv2d(net,64,scope='Conv1_1_1')
-        net = slim.conv2d(net,64,scope='Conv1_1_2')
+        net_pre = resface_pre(images,64,scope='Conv1_pre')
+        net = slim.conv2d(net_pre,64,scope='Conv1_1_1')
+        net = slim.conv2d(net,64,scope='Conv1_1_2') + net_pre
     with tf.variable_scope('Conv2'):
         net = resface_pre(net,128,scope='Conv2_pre')
         net = slim.repeat(net,2,resface_block,128,scope='Conv2')
@@ -81,8 +83,8 @@ def resface36(images, keep_probability,
         net = Conv4_pre + net
     with tf.variable_scope('Logits'):
         #pylint: disable=no-member
-        net = slim.avg_pool2d(net, net.get_shape()[1:3], padding='VALID',
-                              scope='AvgPool')
+        #net = slim.avg_pool2d(net, net.get_shape()[1:3], padding='VALID',
+        #                      scope='AvgPool')
         net = slim.flatten(net)
         net = slim.dropout(net, keep_probability, is_training=phase_train,
                            scope='Dropout')
