@@ -41,10 +41,8 @@ def resface20(images, keep_probability,
         net = resface_pre(net,256,scope='Conv3_pre')
         net = slim.repeat(net,4,resface_block,256,scope='Conv3')
     with tf.variable_scope('Conv4'):
-        Conv4_pre = resface_pre(net,512,scope='Conv4_pre')
-        net = slim.conv2d(Conv4_pre,512,scope='Conv4_1_1')
-        net = slim.conv2d(net,512,activation_fn=None,scope='Conv4_1_2')
-        net = Conv4_pre + net
+        net = resface_pre(net,512,scope='Conv4_pre')
+        net = slim.repeat(net,1,resface_block,512,scope='Conv4')
 
     with tf.variable_scope('Logits'):
         #pylint: disable=no-member
@@ -76,11 +74,8 @@ def resface36(images, keep_probability,
         net = resface_pre(net,256,scope='Conv3_pre')
         net = slim.repeat(net,8,resface_block,256,scope='Conv_3')
     with tf.variable_scope('Conv4'):
-        Conv4_pre = resface_pre(net,512,scope='Conv4_pre')
-        net = resface_block(Conv4_pre,512,scope='Conv4_1')
-        net = slim.conv2d(net,512,scope='Conv4_2_1')
-        net = slim.conv2d(net,512,activation_fn=None,scope='Conv4_2_2')
-        net = Conv4_pre + net
+        net = resface_pre(net,512,scope='Conv4_pre')
+        net = slim.repeat(net,1,resface_block,512,scope='Conv4')
     with tf.variable_scope('Logits'):
         #pylint: disable=no-member
         #net = slim.avg_pool2d(net, net.get_shape()[1:3], padding='VALID',
