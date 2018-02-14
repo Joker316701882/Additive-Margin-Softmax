@@ -8,15 +8,16 @@ batch norm is used in line 111. to cancel batch norm, simply commend out line 11
 '''
 
 def prelu(x):
-  alphas = tf.Variable(tf.constant(0.25,dtype=tf.float32,shape=[x.get_shape()[-1]]),name='prelu_alphas')
-  pos = tf.nn.relu(x)
-  neg = alphas * (x - abs(x)) * 0.5
-  return pos + neg
+    with tf.variable_scope('PRelu'):   
+        alphas = tf.Variable(tf.constant(0.25,dtype=tf.float32,shape=[x.get_shape()[-1]]),name='prelu_alphas')
+        pos = tf.nn.relu(x)
+        neg = alphas * (x - abs(x)) * 0.5
+        return pos + neg
 
 def resface_block(lower_input,output_channels,scope=None):
     with tf.variable_scope(scope):
-        net = slim.conv2d(lower_input, output_channels)
-        net = slim.conv2d(net, output_channels)
+        net = slim.conv2d(lower_input, output_channels,weights_initializer=tf.truncated_normal_initializer(stddev=0.01))
+        net = slim.conv2d(net, output_channels,weights_initializer=tf.truncated_normal_initializer(stddev=0.01))
         return lower_input + net
 
 def resface_pre(lower_input,output_channels,scope=None):
@@ -31,9 +32,8 @@ def resface20(images, keep_probability,
     conv[conv_layer]_[block_index]_[block_layer_index]
     '''
     with tf.variable_scope('Conv1'):
-        net_pre = resface_pre(images,64,scope='Conv1_pre')
-        net = slim.conv2d(net_pre,64,scope='Conv1_1_1')
-        net = slim.conv2d(net,64,scope='Conv1_1_2') + net_pre
+        net = resface_pre(images,64,scope='Conv1_pre')
+        net = slim.repeat(net,1,resface_block,64,scope='Conv1')
     with tf.variable_scope('Conv2'):
         net = resface_pre(net,128,scope='Conv2_pre')
         net = slim.repeat(net,2,resface_block,128,scope='Conv2')
@@ -75,7 +75,9 @@ def resface36(images, keep_probability,
         net = slim.repeat(net,8,resface_block,256,scope='Conv_3')
     with tf.variable_scope('Conv4'):
         net = resface_pre(net,512,scope='Conv4_pre')
+        #net = resface_block(Conv4_pre,512,scope='Conv4_1')
         net = slim.repeat(net,1,resface_block,512,scope='Conv4')
+
     with tf.variable_scope('Logits'):
         #pylint: disable=no-member
         #net = slim.avg_pool2d(net, net.get_shape()[1:3], padding='VALID',
@@ -102,7 +104,7 @@ def inference(image_batch, keep_probability,
     }    
     with tf.variable_scope('Resface'):
         with slim.arg_scope([slim.conv2d, slim.fully_connected], 
-                             weights_initializer=tf.truncated_normal_initializer(stddev=0.01), 
+                             weights_initializer=tf.contrib.layers.xavier_initializer(),
                              weights_regularizer=slim.l2_regularizer(weight_decay), 
                              activation_fn=prelu,
                              normalizer_fn=slim.batch_norm,
