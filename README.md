@@ -14,6 +14,6 @@ and
 Currently it only reaches 97.6%. There might be some bugs, or some irregular preprocessings, when it reaches > 99%, detail configuration will be posted here.
 
 ### 2018-2-14
-Now acc on lfw reaches 98.5% with only use resface36 and flipped image validation.
+Now acc on lfw reaches 99.3% with only use resface36 and flipped-concatenate validation.
 ![lfw](./tfboard/lfw_acc.png)
 
