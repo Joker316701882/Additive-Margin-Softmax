@@ -93,13 +93,11 @@ def inference(image_batch, keep_probability,
               phase_train=True, bottleneck_layer_size=512, 
               weight_decay=0.0):
     batch_norm_params = {
-        # Decay for the moving averages.
         'decay': 0.995,
-        # epsilon to prevent 0s in variance.
         'epsilon': 0.001,
-        # force in-place updates of mean and variance estimates
+        'scale':True,
+        'is_training': phase_train,
         'updates_collections': None,
-        # Moving averages ends up in the trainable variables collection
         'variables_collections': [ tf.GraphKeys.TRAINABLE_VARIABLES ],
     }    
     with tf.variable_scope('Resface'):
