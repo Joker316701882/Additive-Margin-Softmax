@@ -17,6 +17,6 @@ Currently it only reaches 97.6%. There might be some bugs, or some irregular pre
 Now acc on lfw reaches 99.3% with only use resface36 and flipped-concatenate validation.
 
 ### 2018-2-15
-After fixing bugs in training code, finally resface20 can reach 99.33%.
+After fixing bugs in training code, finally resface20 can reach 99.33% which only took 4 hours to converge.
 ![lfw](./tfboard/lfw_acc.png)
 
