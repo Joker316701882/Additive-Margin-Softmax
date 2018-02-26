@@ -23,4 +23,4 @@ This model is trained on vggface2 without removing overlaps between vggface2 and
 ![lfw](./tfboard/lfw_acc.png)
 
 ### 2018-2-17
-Using L-Resnet50E-IR(which proposed in ![this paper](https://arxiv.org/abs/1801.07698)) can reach 99.42%.
+Using **L-Resnet50E-IR** which was proposed in ![this paper](https://arxiv.org/abs/1801.07698) can reach **99.42%**. Also I noticed that alignment method is crucial to accuracy. The quality of alignment algorithm might be the bottleneck of modern face recognition system.
