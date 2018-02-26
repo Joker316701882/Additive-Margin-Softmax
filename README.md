@@ -22,3 +22,5 @@ After fixing bugs in training code, finally resface20 can reach **99.33%** which
 This model is trained on vggface2 without removing overlaps between vggface2 and lfw, so the performance is little higher than reported in orginal paper **98.98%**(*m=0.35*) which trained on casia whose overlaps with lfw are removed.
 ![lfw](./tfboard/lfw_acc.png)
 
+### 2018-2-17
+Using L-Resnet50E-IR(which proposed in ![this paper](https://arxiv.org/abs/1801.07698)) can reach 99.42%.
