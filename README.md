@@ -1,7 +1,7 @@
 # Additive-Margin-Softmax
 This is the implementation of paper &lt;Additive Margin Softmax for Face Verification>
 
-Training logic is not provide here, it is highly inspired by Sandberg's [Facenet](https://github.com/davidsandberg/facenet), check it if you are interested.
+Training logic is not provide here, it is highly inspired by Sandberg's [Facenet](https://github.com/davidsandberg/facenet), check it if you are interested. But pay attention to those ![this](https://github.com/Joker316701882/Additive-Margin-Softmax/issues/1) when you read and use this code with sandberg's code. 
 
 Instead, 
 **model structure** can be found at **resface.py** 
