@@ -26,4 +26,4 @@ This model is trained on vggface2 without removing overlaps between vggface2 and
 Using **L-Resnet50E-IR** which was proposed in ![this paper](https://arxiv.org/abs/1801.07698) can reach **99.42%**. Also I noticed that alignment method is crucial to accuracy. The quality of alignment algorithm might be the bottleneck of modern face recognition system.
 
 ### 2018-2-28
-Just for fun, I tried m=0.2 with Resface20, acc on lfw reaches **99.47%**.
+Just for fun, I tried m=0.2 with Resface20, acc on lfw reaches **99.47%**. All experiments that I've done used **AdamOptimizer**, SGD(with/without momentum) or RMSProp actually performed really bad in my experiments.
