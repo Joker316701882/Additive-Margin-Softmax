@@ -10,12 +10,6 @@ and
 
 ## News
 
-<style>
-table th:first-of-type {
-    width: 100px;
-}
-</style>
-
 |Date| News|
 |----------|---|
 |2018-2-11|  Currently it only reaches **97.6%**. There might be some bugs, or some irregular preprocessings, when it reaches > 99%, detail configuration will be posted here. |
