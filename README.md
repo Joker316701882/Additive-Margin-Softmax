@@ -8,9 +8,6 @@ Instead,
 and 
 **loss head** can be found at **AM-softmax.py**
 
-## lfw accuracy
-![img](./tfboard/lfw_acc.png)
-
 ## News
 | Date     | Update |
 |----------|--------|
@@ -20,3 +17,5 @@ and
 | 2018-02-17 | Using **L-Resnet50E-IR** which was proposed in ![this paper](https://arxiv.org/abs/1801.07698) can reach **99.42%**. Also I noticed that alignment method is crucial to accuracy. The quality of alignment algorithm might be the bottleneck of modern face recognition system.|
 | 2018&#8209;02&#8209;28 | Just for fun, I tried m=0.2 with Resface20, acc on lfw reaches **99.47%**. All experimens that I've done used **AdamOptimizer without weight decay**, *SGD(with/without momentum) or RMSProp* actually performed really bad in my experiments. My assumption is the difference of implementation of optimizer inside different frameworks (e.g. caffe and tf). |
 
+## lfw accuracy
+![img](./tfboard/lfw_acc.png)
