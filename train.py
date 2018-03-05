@@ -146,10 +146,6 @@ def main(args):
         AM_logits = AM_logits_compute(embeddings, label_batch, args, nrof_classes)
         #AM_logits = Arc_logits(embeddings, label_batch, args, nrof_classes)
 
-        if args.center_loss_factor>0.0:
-            prelogits_center_loss, _ = facenet.center_loss(prelogits, label_batch, args.center_loss_alfa, nrof_classes)
-            tf.add_to_collection(tf.GraphKeys.REGULARIZATION_LOSSES, prelogits_center_loss * args.center_loss_factor)
-
         learning_rate = tf.train.exponential_decay(learning_rate_placeholder, global_step,
             args.learning_rate_decay_epochs*args.epoch_size, args.learning_rate_decay_factor, staircase=True)
         tf.summary.scalar('learning_rate', learning_rate)
