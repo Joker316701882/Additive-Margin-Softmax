@@ -31,7 +31,7 @@ import tensorflow as tf
 import numpy as np
 import importlib
 import argparse
-import facenet#定义了一些定义facenet计算图所需的函数
+import facenet
 import lfw
 import h5py
 import tensorflow.contrib.slim as slim
