@@ -8,6 +8,21 @@ Instead,
 and 
 **loss head** can be found at **AM-softmax.py**
 
+## Usage
+### Step1: Align Dataset
+See folder "align", this totally forked from [insightface](https://github.com/deepinsight/insightface/tree/master/src/align). The default image size is **(112,96)**, in this repository, all trained faces share same size **(112,96)**. Use align code to align your train data and validation data (like lfw) first. 
+```
+python align_lfw.py --input-dir [train data dir] --output-dir [aligned output dir]
+```
+You can use align_lfw.py to align both training set and lfw, don't worry about others lie align_insight, align_dlib.
+
+### Step2: Train AM-softmax
+Read **parse_arguments()** function carefully to confiure your parameters. If you are new in face recognition, after align dataset, simply run this code, the default settings will help you solve the rest.
+```
+python train.py --data_dir [aligned train data] --random_clip --learning_rate -1 --learning_rate_schedule_file ./data/learning_rate_AM_softmax.txt --lfw_dir [aligned lfw data]
+```
+Also watch out that acc on lfw is not from cross validation. Read source code for more detail. Thanks Sandberg again for his extraordinary [code](https://github.com/davidsandberg/facenet).
+
 ## News
 | Date     | Update |
 |----------|--------|
