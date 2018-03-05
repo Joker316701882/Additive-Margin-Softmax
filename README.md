@@ -9,11 +9,11 @@ and
 
 ## Usage
 ### Step1: Align Dataset
-See folder "align", this totally forked from [insightface](https://github.com/deepinsight/insightface/tree/master/src/align). The default image size is **(112,96)**, in this repository, all trained faces share same size **(112,96)**. Use align code to align your train data and validation data (like lfw) first. 
+See folder "align", this totally forked from [insightface](https://github.com/deepinsight/insightface/tree/master/src/align). The default image size is **(112,96)**, in this repository, all trained faces share same size **(112,96)**. Use align code to align your train data and validation data (like lfw) first. You can use align_lfw.py to align both training set and lfw, don't worry about others like align_insight, align_dlib.
 ```
 python align_lfw.py --input-dir [train data dir] --output-dir [aligned output dir]
 ```
-You can use align_lfw.py to align both training set and lfw, don't worry about others lie align_insight, align_dlib.
+
 
 ### Step2: Train AM-softmax
 Read **parse_arguments()** function carefully to confiure parameters. If you are new in face recognition, after aligning dataset, simply run this code, the default settings will help you solve the rest.
