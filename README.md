@@ -33,3 +33,7 @@ Also watch out that acc on lfw is not from cross validation. Read source code fo
 | 2018-03-05 | Add training logic and align code.|
 ## lfw accuracy
 ![img](./tfboard/lfw_acc.png)
+
+## My Chinese blog about Face Recognition system
+https://xraft.github.io/2018/03/21/FaceRecognition/
+It includes the experimental details of this repo. Welcome and share your precious advice!
