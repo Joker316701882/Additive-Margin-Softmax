@@ -35,5 +35,5 @@ Also watch out that acc on lfw is not from cross validation. Read source code fo
 ![img](./tfboard/lfw_acc.png)
 
 ## My Chinese blog about Face Recognition system
-https://xraft.github.io/2018/03/21/FaceRecognition/
+https://xraft.github.io/2018/03/21/FaceRecognition/  
 It includes the experimental details of this repo. Welcome and share your precious advice!
