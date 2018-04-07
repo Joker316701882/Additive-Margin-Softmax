@@ -39,7 +39,7 @@ from tensorflow.python.ops import data_flow_ops
 from tensorflow.python.framework import ops
 from tensorflow.python.ops import array_ops
 from AM_softmax import AM_logits_compute
-from validation_tool import validation
+#from validation_tool import validation
 import os
 import math
 from scipy import misc
