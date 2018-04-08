@@ -18,7 +18,7 @@ python align_lfw.py --input-dir [train data dir] --output-dir [aligned output di
 ### Step2: Train AM-softmax
 Read **parse_arguments()** function carefully to confiure parameters. If you are new in face recognition, after aligning dataset, simply run this code, the default settings will help you solve the rest.
 ```
-python train.py --data_dir [aligned train data] --random_clip --learning_rate -1 --learning_rate_schedule_file ./data/learning_rate_AM_softmax.txt --lfw_dir [aligned lfw data]
+python train.py --data_dir [aligned train data] --random_flip --learning_rate -1 --learning_rate_schedule_file ./data/learning_rate_AM_softmax.txt --lfw_dir [aligned lfw data]
 ```
 Also watch out that acc on lfw is not from cross validation. Read source code for more detail. Thanks Sandberg again for his extraordinary [code](https://github.com/davidsandberg/facenet).
 
