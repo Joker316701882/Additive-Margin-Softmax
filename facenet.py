@@ -504,7 +504,7 @@ def calculate_roc(thresholds, embeddings1, embeddings2, actual_issame, nrof_fold
     #dist = np.sum(np.square(diff),1)
     dist = (embeddings1 * embeddings2).sum(axis=1)/2.
     indices = np.arange(nrof_pairs)
-    
+   
     best_thres = []
 
     for fold_idx, (train_set, test_set) in enumerate(k_fold.split(indices)):
@@ -523,7 +523,7 @@ def calculate_roc(thresholds, embeddings1, embeddings2, actual_issame, nrof_fold
     return tpr, fpr, accuracy
 
 def calculate_accuracy(threshold, dist, actual_issame):
-    predict_issame = np.greater(dist, threshold)
+    predict_issame = np.less(dist, threshold)
     tp = np.sum(np.logical_and(predict_issame, actual_issame))
     fp = np.sum(np.logical_and(predict_issame, np.logical_not(actual_issame)))
     tn = np.sum(np.logical_and(np.logical_not(predict_issame), np.logical_not(actual_issame)))
