@@ -98,7 +98,7 @@ def inference(image_batch, keep_probability,
         'scale':True,
         'is_training': phase_train,
         'updates_collections': None,
-        'variables_collections': [ tf.GraphKeys.TRAINABLE_VARIABLES ],
+        'variables_collections': None
     }    
     with tf.variable_scope('Resface'):
         with slim.arg_scope([slim.conv2d, slim.fully_connected], 
