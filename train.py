@@ -154,6 +154,11 @@ def main(args):
             labels=label_batch, logits=AM_logits, name='cross_entropy_per_example')
         cross_entropy_mean = tf.reduce_mean(cross_entropy, name='cross_entropy')
         
+        for weights in slim.get_variables_by_name('kernel'):
+            kernel_regularization = tf.contrib.layers.l2_regularizer(args.weight_decay)(weights)
+            print(weights)
+            tf.add_to_collection(tf.GraphKeys.REGULARIZATION_LOSSES, kernel_regularization)	
+	
         regularization_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
         total_loss = tf.add_n([cross_entropy_mean] + regularization_losses, name='total_loss')
         tf.add_to_collection('losses', total_loss)
