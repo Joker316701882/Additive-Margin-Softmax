@@ -85,7 +85,8 @@ def inference(image_batch, keep_probability,
                                     is_training=phase_train,
                                     activation_fn=prelu,
                                     updates_collections=None,
-                                    variables_collections=None):
+                                    variables_collections=[ tf.GraphKeys.TRAINABLE_VARIABLES ]
+                                   ):
                     return LResnet50E_IR(images=image_batch, 
                                     keep_probability=keep_probability, 
                                     phase_train=phase_train, 
