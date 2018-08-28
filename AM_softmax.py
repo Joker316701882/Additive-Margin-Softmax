@@ -15,7 +15,7 @@ def AM_logits_compute(embeddings, label_batch, args, nrof_classes):
     s = 30
 
     with tf.name_scope('AM_logits'):
-        kernel = tf.Variable(tf.truncated_normal([args.embedding_size, nrof_classes]))
+        kernel = tf.get_variable(name='kernel',dtype=tf.float32,shape=[args.embedding_size,nrof_classes],initializer=tf.contrib.layers.xavier_initializer(uniform=False))
         kernel_norm = tf.nn.l2_normalize(kernel, 0, 1e-10, name='kernel_norm')
         cos_theta = tf.matmul(embeddings, kernel_norm)
         cos_theta = tf.clip_by_value(cos_theta, -1,1) # for numerical steady
