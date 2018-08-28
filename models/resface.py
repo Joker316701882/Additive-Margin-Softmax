@@ -9,7 +9,7 @@ batch norm is used in line 111. to cancel batch norm, simply commend out line 11
 
 def prelu(x):
     with tf.variable_scope('PRelu'):   
-        alphas = tf.Variable(tf.constant(0.25,dtype=tf.float32,shape=[x.get_shape()[-1]]),name='prelu_alphas')
+        alphas = tf.get_variable(name='prelu_alphas', dtype=tf.float32, initializer=tf.constant_initializer(value=0.25),shape=[x.get_shape()[-1]])
         pos = tf.nn.relu(x)
         neg = alphas * (x - abs(x)) * 0.5
         return pos + neg
