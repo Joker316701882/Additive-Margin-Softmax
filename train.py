@@ -153,14 +153,20 @@ def main(args):
         cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(
             labels=label_batch, logits=AM_logits, name='cross_entropy_per_example')
         cross_entropy_mean = tf.reduce_mean(cross_entropy, name='cross_entropy')
-        
+       
+        #print('test',tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES))
+
         for weights in slim.get_variables_by_name('kernel'):
             kernel_regularization = tf.contrib.layers.l2_regularizer(args.weight_decay)(weights)
             print(weights)
             tf.add_to_collection(tf.GraphKeys.REGULARIZATION_LOSSES, kernel_regularization)	
 	
         regularization_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
-        total_loss = tf.add_n([cross_entropy_mean] + regularization_losses, name='total_loss')
+
+        if args.weight_decay==0:
+            total_loss = tf.add_n([cross_entropy_mean], name='total_loss')
+        else:
+            total_loss = tf.add_n([cross_entropy_mean] + regularization_losses, name='total_loss')
         tf.add_to_collection('losses', total_loss)
 
         #define two saver in case under 'finetuning on different dataset' situation 
@@ -169,7 +175,8 @@ def main(args):
 
         #train_op = facenet.train(total_loss, global_step, args.optimizer, 
         #    learning_rate, args.moving_average_decay, tf.trainable_variables(), args.log_histograms)
-        train_op = tf.train.AdamOptimizer(learning_rate).minimize(total_loss,global_step = global_step,var_list=tf.trainable_variables())
+        #train_op = tf.train.AdamOptimizer(learning_rate).minimize(total_loss,global_step = global_step,var_list=tf.trainable_variables())
+        train_op = tf.train.MomentumOptimizer(learning_rate,momentum=0.9).minimize(total_loss,global_step=global_step,var_list=tf.trainable_variables())
         summary_op = tf.summary.merge_all()
 
         # Start running operations on the Graph.
@@ -199,9 +206,11 @@ def main(args):
 
                 print('validation running...')
                 if args.lfw_dir:
-                    best_accuracy = evaluate_double(sess, enqueue_op, image_paths_placeholder, labels_placeholder, phase_train_placeholder, batch_size_placeholder, embeddings, 
-                    	label_batch, lfw_paths, actual_issame, args.lfw_batch_size, args.lfw_nrof_folds, log_dir, step, summary_writer,best_accuracy,saver_save,model_dir,subdir,image_batch,args)
-            
+                    #best_accuracy = evaluate_double(sess, enqueue_op, image_paths_placeholder, labels_placeholder, phase_train_placeholder, batch_size_placeholder, embeddings, 
+                    #	label_batch, lfw_paths, actual_issame, args.lfw_batch_size, args.lfw_nrof_folds, log_dir, step, summary_writer,best_accuracy, saver_save,model_dir,subdir,image_batch,args)
+
+                    best_accuracy = evaluate(sess, enqueue_op, image_paths_placeholder, labels_placeholder, phase_train_placeholder, batch_size_placeholder, embeddings, 
+                        label_batch, lfw_paths, actual_issame, args.lfw_batch_size, args.lfw_nrof_folds, log_dir, step, summary_writer,best_accuracy,saver_save,model_dir,subdir)
     return model_dir
   
 def find_threshold(var, percentile):

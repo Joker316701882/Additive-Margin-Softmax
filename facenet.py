@@ -500,9 +500,9 @@ def calculate_roc(thresholds, embeddings1, embeddings2, actual_issame, nrof_fold
     fprs = np.zeros((nrof_folds,nrof_thresholds))
     accuracy = np.zeros((nrof_folds))
     
-    #diff = np.subtract(embeddings1, embeddings2)
-    #dist = np.sum(np.square(diff),1)
-    dist = (embeddings1 * embeddings2).sum(axis=1)/2.
+    diff = np.subtract(embeddings1, embeddings2)
+    dist = np.sum(np.square(diff),1)
+    #dist = (embeddings1 * embeddings2).sum(axis=1)/2.
     indices = np.arange(nrof_pairs)
    
     best_thres = []
@@ -546,9 +546,9 @@ def calculate_val(thresholds, embeddings1, embeddings2, actual_issame, far_targe
     val = np.zeros(nrof_folds)
     far = np.zeros(nrof_folds)
     
-    #diff = np.subtract(embeddings1, embeddings2)
-    #dist = np.sum(np.square(diff),1)
-    dist = (embeddings1 * embeddings2).sum(axis=1)/2.
+    diff = np.subtract(embeddings1, embeddings2)
+    dist = np.sum(np.square(diff),1)
+    #dist = (embeddings1 * embeddings2).sum(axis=1)/2.
     indices = np.arange(nrof_pairs)
     
     for fold_idx, (train_set, test_set) in enumerate(k_fold.split(indices)):
@@ -572,7 +572,7 @@ def calculate_val(thresholds, embeddings1, embeddings2, actual_issame, far_targe
 
 
 def calculate_val_far(threshold, dist, actual_issame):
-    predict_issame = np.greater(dist, threshold)
+    predict_issame = np.less(dist, threshold)
     true_accept = np.sum(np.logical_and(predict_issame, actual_issame))
     false_accept = np.sum(np.logical_and(predict_issame, np.logical_not(actual_issame)))
     n_same = np.sum(actual_issame)
