@@ -34,7 +34,12 @@ Also watch out that acc on lfw is not from cross validation. Read source code fo
 | 2018-04-17 | Fix bugs in evaluation code. Upload new/deeper model "LRenet50E_IR" proposed in ![insightface](https://arxiv.org/abs/1801.07698) which performs better than resface20 and 36.|
 | 2018-08-29 | Recently I revisiting this code and found that "weight_decay" settings for last fc layer is wrong, which lead to previous weird experiment conclusion. Now it's been fixed. And to follow standard evaluation protocal on lfw, evaluation code has been modified. The latest experiment result is updated here: Resface20(bn) + vggface2 + weight_decay5e-4 + batch_size256 + momentum achieves **0.995+-0.003** on lfw. Further more, with this code, it's easy to use some deeper models to achieve 99.7%+ on lfw. One big problem of this code is that it will load the name list of all images in cache at the begining, which will take very huge memory space. Also current dataset are composed of so small image files which will lead to low efficiency when load and transmit them. Thus tfrecord is recommanded to speed up training process. |
 ## lfw accuracy
+Adam w/o weight_decay:
 ![img](./tfboard/lfw_acc.png)
+
+Momemtum with weight_decay:
+![img](./tfborad/resface20_mom_weightdecay.png)
+
 
 ## My Chinese blog about Face Recognition system
 https://xraft.github.io/2018/03/21/FaceRecognition/  
