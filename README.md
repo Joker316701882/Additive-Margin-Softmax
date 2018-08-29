@@ -38,7 +38,7 @@ Adam w/o weight_decay:
 ![img](./tfboard/lfw_acc.png)
 
 Momemtum with weight_decay:
-![img](./tfborad/resface20_mom_weightdecay.png)
+See ./tfboard/resface20_mom_weightdecay.png
 
 ## My Chinese blog about Face Recognition system
 https://xraft.github.io/2018/03/21/FaceRecognition/  
